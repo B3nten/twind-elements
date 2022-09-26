@@ -17,11 +17,7 @@ export default function App() {
         </head>
         <body>
           <div className={twind('md:hover:scale-150')}>regular div</div>
-          {/* <tw.div base='bg-green-500' md={'bg-red-300'} sm_hover={'scale-150'} sm={'bg-red-300'} onClick={()=>console.log('click')}>Div</tw.div> */}
-          <tw.div className="" >hello</tw.div>
-          {/* <tw.span sm={'ok'} className='test'>Span</tw.span>
-          <tw.img className="$1"></tw.img>
-          <tw.h6>h6</tw.h6> */}
+          <tw.div base={'text-red-300'} hover={'scale-150'} sm_hover='scale-50' >hello</tw.div>
         </body>
       </html>
     </TwindProvider>
