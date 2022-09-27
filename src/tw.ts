@@ -132,13 +132,10 @@ type TVariants = `t-${typeof variants[number]}${string | never}`;
 type TCustomProps = { [K in TVariants]?: string | string[] } & {
   [K in typeof variants[number]]?: string | string[];
 };
-type lol = JSX.IntrinsicElements
-type TVariantObject = {
-  [K in typeof variants[number]]?: string | string[] & { [K in typeof variants[number]]?: string | string[] };
-};
 
-export type TPolymorphicProps<Tag extends TType> =
-  ComponentPropsWithRef<Tag> & { readonly type?: Tag } & TCustomProps;
+type TPolymorphicProps<Tag extends TType> = ComponentPropsWithRef<Tag> & {
+  readonly type?: Tag;
+} & TCustomProps;
 
 function createComponent<T extends TType>(
   tag: T
@@ -148,25 +145,25 @@ function createComponent<T extends TType>(
     const classes = [];
     for (const prop of Object.keys(rest)) {
       // for (const variant of variants) {
-        if (prop.indexOf('t-') === 0 ) {
-          const validProp = prop.replaceAll("t-", "").replaceAll("_", ":");
-          // if(validProp === 'variants') return
-          if (validProp === "base") {
-            //@ts-ignore // will fix later
-            if (typeof rest[prop] === "string") {
-              classes.push(rest[prop]);
-            }else{
-              classes.push(rest[prop].join(" "));
-            }
+      if (prop.indexOf("t-") === 0) {
+        const validProp = prop.replaceAll("t-", "").replaceAll("_", ":");
+        // if(validProp === 'variants') return
+        if (validProp === "base") {
+          //@ts-ignore // will fix later
+          if (typeof rest[prop] === "string") {
+            classes.push(rest[prop]);
           } else {
-            //@ts-ignore // will fix later
-            if (typeof rest[prop] === "string") {
-              classes.push(validProp + ":(" + rest[prop] + ")");
-            }else{
-              classes.push(validProp + ":(" + rest[prop].join(' ') + ")");
-            }
+            classes.push(rest[prop].join(" "));
+          }
+        } else {
+          //@ts-ignore // will fix later
+          if (typeof rest[prop] === "string") {
+            classes.push(validProp + ":(" + rest[prop] + ")");
+          } else {
+            classes.push(validProp + ":(" + rest[prop].join(" ") + ")");
           }
         }
+      }
       // }
     }
     return createElement(
@@ -177,58 +174,37 @@ function createComponent<T extends TType>(
   };
 }
 
-const tw = {} as { [K in TType]: ReturnType<typeof createComponent> };
+type TwVariantValue = string | TwClassObject | Array<string | TwClassObject>;
+
+type TwClassObject = { [K in typeof variants[number]]?: TwVariantValue } & {
+  [K in `${string | never}${typeof variants[number]}${
+    | string
+    | never}`]?: TwVariantValue;
+};
+
+function readObject(obj: TwClassObject) {
+  const keys = Object.keys(obj);
+  const classes: string[] = [];
+  for (const key in keys) {
+    if (Array.isArray(keys[key])) {
+      readObject(keys[key]);
+    } else if (typeof keys[key] === "string") {
+      // handle as string
+    } else if (typeof keys[key] === "object") {
+      // handle as array
+    }
+  }
+  return classes.join(" ");
+}
+
+const tw = {
+  parse: (obj: TwClassObject) => readObject(obj),
+} as
+  | { [K in TType]: ReturnType<typeof createComponent> }
+  | { parse: typeof readObject };
 
 tags.forEach((tag) => {
   tw[tag] = createComponent(tag);
 });
 
 export default tw;
-
-// function readObject(obj: TVariantObject) {
-//   const keys = Object.keys(obj);
-//   const classes = []
-//   for (const key of keys) {
-//     if(typeof keys[key as keyof typeof keys] === 'string'){
-//       classes.push(key + ":" + "(" + keys[key] + ")")
-//     }else{
-//       classes.push(key + ":" + "(" + keys[key].join(' ') + ")")
-//     }
-//   }
-// }
-
-// <t.div 
-// base='bg-tranparent' 
-// variants={{
-//   'md': 'bg-red-500',
-//   'lg': 'bg-blue-500',
-//   'hover:lg': 'bg-green-500'
-// }}>
-
-
-type TwVariantValue = string | TwClassObject | Array<string | TwClassObject>
-
-type TwClassObject = {[K in typeof variants[number]]?: TwVariantValue} & {[K in `${string|never}${typeof variants[number]}${string | never}`]?: TwVariantValue}
-
-const test: TwClassObject = {
-  md: 'bg-red-500',
-  hover: {
-    md: 'bg-green-500'
-  },
-  focus: ['bg-blue-500', 'bg-green-500', {md: 'bg-red-500'}]
-}
-
-function readObject(obj: TwClassObject){
-  const keys = Object.keys(obj)
-  const classes:string[] = []
-  for (const key in keys){
-    if(Array.isArray(keys[key])){
-      readObject(keys[key])
-    }else if (typeof keys[key] === 'string'){
-      // handle as string
-    }else if (typeof keys[key] === 'object'){
-      // handle as array
-    }
-  }
-  return classes.join(' ')
-}
