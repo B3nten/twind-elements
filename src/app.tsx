@@ -17,9 +17,13 @@ export default function App() {
         </head>
         <body>
           <div className={twind('md:hover:scale-150')}>regular div</div>
-          <tw.div base={'text-red-300'} hover={'scale-150'} sm_hover='scale-50' >hello</tw.div>
+          <tw.div t-base={'text-red-300'} t-hover={'scale-150'} t-sm_hover='scale-50' >hello</tw.div>
         </body>
       </html>
     </TwindProvider>
   );
 }
+
+/*
+{hover: 'scale-150', "sm-hover": 'scale-50', lg: 'scale-200'}
+*/
