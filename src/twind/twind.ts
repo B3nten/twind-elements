@@ -1,6 +1,6 @@
 import { cssomSheet, setup } from "twind";
 import { virtualSheet } from "twind/sheets";
-
+import * as colors from 'twind/colors'
 /**
  * Depending on if we are running server side (Deno) or on the browser
  * we construct a VirtualSheet OR a CSSStyleSheet which will be populated
@@ -15,6 +15,12 @@ export const sheet = typeof Deno !== "undefined" ? virtualSheet() : cssomSheet({
 /**
  * Your theme configuration for twind
  */
-const theme = {};
+const theme = {
+  extend: {
+      colors,
+  }
+};
+
+console.log(theme)
 
 setup({ sheet, theme });
