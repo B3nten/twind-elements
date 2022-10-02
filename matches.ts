@@ -1,100 +1,4 @@
-const matches = [
-    'aspect-',
-    'container',
-    'columns-',
-    'break',
-    'box',
-    'block',
-    'inline',
-    'flex',
-    'table',
-    'grid',
-    'contents',
-    'hidden',
-    'float',
-    'clear',
-    'isolation',
-    'object-',
-    'overflow-',
-    'overscroll-',
-    'static',
-    'fixed',
-    'absolute',
-    'relative',
-    'sticky',
-    'inset-',
-    'top-',
-    'right-',
-    'bottom-',
-    'left-',
-    'visible',
-    'invisible',
-    'z-',
-    'basis-',
-    'grow',
-    'shrink',
-    'order-',
-    'col-',
-    'row-',
-    'auto-',
-    'gap-',
-    'justify-',
-    'content-',
-    'items-',
-    'self-',
-    'place-',
-    'p-',
-    'px-',
-    'py-',
-    'pt-',
-    'pr-',
-    'pb-',
-    'pl-',
-    'm-',
-    'mx-',
-    'my-',
-    'mt-',
-    'mr-',
-    'mb-',
-    'ml-',
-    'space-',
-    'w-',
-    'min-',
-    'max-',
-    'h-',
-    'font-',
-    'text-',
-    'antialiased',
-    'subpixel-',
-    'italic',
-    'not-italic',
-    'uppercase',
-    'lowercase',
-    'capitalize',
-    'normal-case',
-    'underline',
-    'overline',
-    'normal-nums',
-    'ordinal',
-    'slashed-zero',
-    'lining-nums',
-    'oldstyle-nums',
-    'proportional-nums',
-    'tabular-nums',
-    'diagonal-fractions',
-    'stacked-fractions',
-    'tracking-',
-    'leading-',
-    'list-',
-    'decoration-',
-    'truncate',
-    '
-
-]
-
-
-const values = new Set([
-    // Variants
+export const modifiers = new Set([
     "xs",
     "sm",
     "md",
@@ -150,7 +54,10 @@ const values = new Set([
     "rtl",
     "ltr",
     "open",
+])
 
+
+export const classes = new Set([
     // Multi-Values
 
     //Layout
@@ -228,6 +135,65 @@ const values = new Set([
     'via-',
     'to-',
 
+    //Borders
+    'rounded-',
+    'border-',
+    'divide-',
+    'outline-',
+    'ring-',
+
+    //Effects
+    'shadow-',
+    'opacity-',
+    'mix-',
+
+    //Filters
+    'blur-',
+    'brightness-',
+    'contrast-',
+    'drop-',
+    'grayscale-',
+    'hue-',
+    'invert-',
+    'saturate-',
+    'sepia-',
+    'backdrop-',
+
+    //Tables
+    'table-',
+
+    //Transitions
+    'transition-',
+    'duration-',
+    'ease-',
+    'delay-',
+    'animate-',
+
+    //Transforms
+    'scale-',
+    'rotate-',
+    'translate-',
+    'skew-',
+    'origin-',
+
+    //Interactivity
+    'accent-',
+    'appearance-',
+    'cursor-',
+    'caret-',
+    'pointer-',
+    'resize-',
+    'scroll-',
+    'snap-',
+    'touch-',
+    'select-',
+    'will-',
+    'fill-',
+    'stroke-',
+
+    //Accessability
+    'sr-',
+    'not-',
 
     // Constants
 
@@ -297,5 +263,18 @@ const values = new Set([
     'normal-case',
     'truncate',
 
+    //Borders
+    'border',
 
+    //Filters
+    'blur',
+    'grayscale',
+    'invert',
+    'sepia',
+
+    //Transitions
+    'transition',
+
+    //Interactivity
+    'resize'
 ])

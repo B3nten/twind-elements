@@ -15,6 +15,7 @@ export default function App() {
           <link rel="stylesheet" href="/style.css" />
         </head>
         <body>
+          <div m-='2' ></div>
           <div
             className={pog.parse({
               base: [
